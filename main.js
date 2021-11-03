@@ -40,7 +40,8 @@ function preprocess(myDocument) {
 }
 
 function isSecure(item) {
-	return item.title.includes(' Parte') || overtime && item.title.toLowerCase().includes('prórroga');
+	let title = item.title.toLowerCase();
+	return title.includes(' parte') || overtime && title.toLowerCase().includes('prórroga');
 }
 
 function toElement(item) {
