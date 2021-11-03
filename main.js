@@ -1,6 +1,4 @@
 "use strict";
-const source = "https://fapi-top.prisasd.com/podcast/playser/1_playser/itunestfp/carrusel_deportivo_partidos_de_la_jornada/audios.xml";
-
 function pause(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -8,7 +6,7 @@ function pause(ms) {
 function dataPromise() {
 	return new Promise((resolve, reject) => {
 		let request = new XMLHttpRequest();
-		request.open('GET', source);
+		request.open('GET', document.querySelector("[rel=prefetch]").href);
 		request.responseType = "document";
 		request.onload = () => {
 			if (request.status < 400)
@@ -32,7 +30,7 @@ async function secureDataPromise() {
 
 function preprocess(myDocument) {
 	return Array.from(myDocument.getElementsByTagName('item'), item => {return {
-		title: item.getElementsByTagName('title')[0].textContent,
+		title: item.getElementsByTagName('title')[0].textContent.replace("Los Partidos de la Jornada | ", ''),
 		url: item.getElementsByTagName('enclosure')[0].getAttribute('url')
 	}});
 }
