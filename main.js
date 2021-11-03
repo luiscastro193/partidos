@@ -1,4 +1,8 @@
 "use strict";
+const list = document.querySelector('ul');
+const overtimeInput = document.querySelector('input');
+let overtime;
+
 function pause(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -36,7 +40,7 @@ function preprocess(myDocument) {
 }
 
 function isSecure(item) {
-	return item.title.includes(' Parte');
+	return item.title.includes(' Parte') || overtime && item.title.toLowerCase().includes('prórroga');
 }
 
 function toElement(item) {
@@ -53,4 +57,14 @@ function toElement(item) {
 	return element;
 }
 
-secureDataPromise().then(myData => document.querySelector('ul').append(...preprocess(myData).filter(isSecure).map(toElement)));
+const data = secureDataPromise().then(myData => preprocess(myData));
+
+async function updateList() {
+	let myData = await data;
+	overtime = overtimeInput.checked;
+	list.innerHTML = '';
+	list.append(...myData.filter(isSecure).map(toElement));
+}
+
+updateList();
+overtimeInput.onchange = updateList;
