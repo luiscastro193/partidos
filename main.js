@@ -6,7 +6,7 @@ function pause(ms) {
 function dataPromise() {
 	return new Promise((resolve, reject) => {
 		let request = new XMLHttpRequest();
-		request.open('GET', document.querySelector("[rel=prefetch]").href);
+		request.open('GET', document.querySelector("link[rel=prefetch]").href);
 		request.responseType = "document";
 		request.onload = () => {
 			if (request.status < 400)
