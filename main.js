@@ -70,12 +70,14 @@ function getAltData() {
 	return altData;
 }
 
+let lastUpdate = 0;
+
 async function updateList() {
+	let updateId = ++lastUpdate;
 	list.innerHTML = 'Cargando...';
-	let useAlt = altSourceInput.checked;
-	let myData = await (useAlt && getAltData() || data);
+	let myData = await (altSourceInput.checked && getAltData() || data);
 	
-	if (useAlt == altSourceInput.checked) {
+	if (updateId == lastUpdate) {
 		overtime = overtimeInput.checked;
 		list.innerHTML = '';
 		list.append(...myData.filter(isSecure).map(toElement));
