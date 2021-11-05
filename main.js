@@ -72,10 +72,14 @@ function getAltData() {
 
 async function updateList() {
 	list.innerHTML = 'Cargando...';
-	let myData = await (altSourceInput.checked && getAltData() || data);
-	overtime = overtimeInput.checked;
-	list.innerHTML = '';
-	list.append(...myData.filter(isSecure).map(toElement));
+	let useAlt = altSourceInput.checked;
+	let myData = await (useAlt && getAltData() || data);
+	
+	if (useAlt == altSourceInput.checked) {
+		overtime = overtimeInput.checked;
+		list.innerHTML = '';
+		list.append(...myData.filter(isSecure).map(toElement));
+	}
 }
 
 updateList();
