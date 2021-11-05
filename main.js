@@ -43,7 +43,7 @@ function preprocess(myDocument) {
 
 function isSecure(item) {
 	let title = item.title.toLowerCase();
-	return title.includes(' parte') || /de \d{2}:\d{2} a \d{2}:\d{2}/.test(title) || overtime && title.toLowerCase().includes('prórroga');
+	return title.includes(' parte') || /de \d{2}:\d{2} a \d{2}:\d{2}/.test(title) || overtime && title.includes('prórroga');
 }
 
 function toElement(item) {
