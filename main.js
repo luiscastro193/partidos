@@ -36,7 +36,8 @@ async function secureDataPromise(source) {
 
 function preprocess(myDocument) {
 	return Array.from(myDocument.getElementsByTagName('item'), item => {return {
-		title: item.getElementsByTagName('title')[0].textContent.replace("Los Partidos de la Jornada | ", '').replace(", Tiempo de Juego", '').trim(),
+		title: item.getElementsByTagName('title')[0].textContent
+			.replace("Los Partidos de la Jornada | ", '').replace(", Tiempo de Juego", '').trim(),
 		url: item.getElementsByTagName('enclosure')[0].getAttribute('url')
 	}});
 }
@@ -52,7 +53,6 @@ function toElement(item) {
 	
 	a.textContent = item.title;
 	a.href = item.url;
-	a.download = item.title;
 	a.target = "_blank";
 	a.rel = "noopener";
 	
