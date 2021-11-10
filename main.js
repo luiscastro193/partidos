@@ -60,7 +60,7 @@ function toElement(item) {
 	return element;
 }
 
-const data = secureDataPromise(document.querySelector("link[rel=prefetch]").href).then(myData => preprocess(myData));
+const data = secureDataPromise(document.querySelector("link[rel=preconnect]").href).then(myData => preprocess(myData));
 let altData;
 
 function getAltData() {
