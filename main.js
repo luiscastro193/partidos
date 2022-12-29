@@ -9,13 +9,14 @@ function pause(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function request(resource, options) {
-	return fetch(resource, options).then(response => {if (response.ok) return response; else throw response});
+async function request(resource, options) {
+	let response = await fetch(resource, options);
+	if (response.ok) return response; else throw response;
 }
 
-function dataPromise(source) {
-	return request(source).then(response => response.text())
-		.then(xml => new DOMParser().parseFromString(xml, "text/xml"));
+async function dataPromise(source) {
+	let xml = await request(source).then(response => response.text())
+	return new DOMParser().parseFromString(xml, "text/xml");
 }
 
 async function secureDataPromise(source) {
