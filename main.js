@@ -9,20 +9,13 @@ function pause(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function request(resource, options) {
+	return fetch(resource, options).then(response => {if (response.ok) return response; else throw response});
+}
+
 function dataPromise(source) {
-	return new Promise((resolve, reject) => {
-		let request = new XMLHttpRequest();
-		request.open('GET', source);
-		request.responseType = "document";
-		request.onload = () => {
-			if (request.status < 400)
-				resolve(request.response);
-			else
-				reject(request.statusText);
-		};
-		request.onerror = () => reject(request.statusText);
-		request.send();
-	});
+	return request(source).then(response => response.text())
+		.then(xml => new DOMParser().parseFromString(xml, "text/xml"));
 }
 
 async function secureDataPromise(source) {
