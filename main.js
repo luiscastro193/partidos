@@ -15,7 +15,7 @@ async function request(resource, options) {
 }
 
 async function dataPromise(source) {
-	let xml = await request(source).then(response => response.text())
+	let xml = await request(source).then(response => response.text());
 	return new DOMParser().parseFromString(xml, "text/xml");
 }
 
