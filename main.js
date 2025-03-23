@@ -31,7 +31,7 @@ async function secureDataPromise(source) {
 function preprocess(myDocument) {
 	return Array.from(myDocument.getElementsByTagName('item'), item => {return {
 		title: item.getElementsByTagName('title')[0].textContent
-			.replace("Los Partidos de la Jornada | ", '').replace(", Tiempo de Juego", '').trim(),
+			.replace("Los Partidos de la Jornada | ", '').replace("| TIEMPO DE JUEGO", '').trim(),
 		url: item.getElementsByTagName('enclosure')[0].getAttribute('url')
 	}});
 }
