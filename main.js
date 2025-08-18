@@ -48,7 +48,6 @@ function toElement(item) {
 	a.textContent = item.title;
 	a.href = item.url;
 	a.target = "_blank";
-	a.rel = "noopener";
 	
 	element.appendChild(a);
 	return element;
